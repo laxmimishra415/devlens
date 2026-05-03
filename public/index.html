@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevLens — AI Code Reviewer</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- CodeMirror -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+</head>
+<body>
+
+  <!-- AUTH SECTION -->
+  <div id="auth-section">
+    <div class="auth-box">
+      <h1>🔍 DevLens</h1>
+      <p class="tagline">AI-Powered Code Reviewer</p>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="showTab('login')">Login</button>
+        <button class="auth-tab" onclick="showTab('register')">Register</button>
+      </div>
+
+      <!-- Login Form -->
+      <div id="login-form">
+        <input type="email" id="login-email" placeholder="Email" />
+        <input type="password" id="login-password" placeholder="Password" />
+        <button onclick="login()">Login</button>
+        <p id="login-error" class="error"></p>
+      </div>
+
+      <!-- Register Form -->
+<div id="register-form" style="display:none">
+  <input type="text" id="reg-name" placeholder="Full Name" />
+  <input type="email" id="reg-email" placeholder="Email" />
+  <input type="password" id="reg-password" placeholder="Password (min 8 chars, 1 uppercase, 1 number)" />
+  <p id="password-strength" style="font-size:0.8rem;margin-top:-0.5rem;margin-bottom:0.5rem;text-align:left"></p>
+  <button onclick="register()">Register</button>
+  <p id="reg-error" class="error"></p>
+</div>
+    </div>
+  </div>
+
+  <!-- MAIN APP SECTION -->
+  <div id="app-section" style="display:none">
+    
+    <!-- Navbar -->
+    <nav>
+      <h1>🔍 DevLens</h1>
+      <div>
+        <span id="user-name"></span>
+        <button onclick="logout()">Logout</button>
+      </div>
+    </nav>
+
+    <div class="main-container">
+      
+      <!-- Left: Code Editor -->
+      <div class="editor-panel">
+        <div class="panel-header">
+          <h3>Your Code</h3>
+          <select id="language-select">
+            <option value="javascript">JavaScript</option>
+            <option value="python">Python</option>
+            <option value="java">Java</option>
+            <option value="cpp">C++</option>
+            <option value="sql">SQL</option>
+          </select>
+        </div>
+        <textarea id="code-editor"></textarea>
+        <button id="review-btn" onclick="reviewCode()">
+          🔍 Review My Code
+        </button>
+      </div>
+
+      <!-- Right: Review Results -->
+      <div class="review-panel">
+        <div id="loading" style="display:none">
+          <div class="spinner"></div>
+          <p>AI is analyzing your code...</p>
+        </div>
+
+        <div id="review-results" style="display:none">
+          <div class="result-card bugs">
+            <h3>🐛 Bugs Found</h3>
+            <ul id="bugs-list"></ul>
+          </div>
+          <div class="result-card performance">
+            <h3>⚡ Performance</h3>
+            <ul id="performance-list"></ul>
+          </div>
+          <div class="result-card security">
+            <h3>🔒 Security</h3>
+            <ul id="security-list"></ul>
+          </div>
+          <div class="result-card suggestions">
+            <h3>💡 Suggestions</h3>
+            <ul id="suggestions-list"></ul>
+          </div>
+        </div>
+
+        <div id="empty-state">
+          <p>👈 Paste your code and click Review</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CodeMirror JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/clike/clike.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/sql/sql.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
